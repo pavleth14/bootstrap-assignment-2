@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+        
+        <title>Assignment 2 - Website Building</title>
+        <style>
+            body {
+                box-sizing: border-box;
+                font-family: sans-serif;
+            }
+
+            #login-container {
+                width: 460px;
+                margin: 0 auto;
+            }
+
+            form label,
+            form input {
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            form input {
+                padding: 8px;
+            }
+
+            form label {
+                font-weight: bold;
+            }
+
+            form div {
+                margin: 16px 0px;
+                position:relative;
+            }
+
+            .fas {
+                
+                display: inline-block;
+                position: absolute;
+                z-index:-1;
+            }
+
+            .fa-times, .fa-check {
+                top: 27px;
+                right: 10px;
+                font-size: medium;
+            }
+
+            .fa-times {
+                color:red;
+            }
+
+            .fa-check {
+                color: green;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <div id="login-container">
+
+            <form>
+                <div>
+                    <label for="username">Username:</label>
+                    <input id="username" type="text">
+                    <i class="fas fasunt fa-times"></i>
+                    <i class="fas fasunc fa-check"></i>
+                </div>
+
+                <div>
+                    <label for="password">Password:</label>
+                    <input id="password" type="password">
+                    <i class="fas faspt fa-times"></i>
+                    <i class="fas faspc fa-check"></i>
+                </div>
+
+                <input type="submit" id="submit" value="Login">
+            </form>
+            <p class="response"></p>
+        </div>
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+        <script>
+            $(document).ready(function(){
+
+                $("#submit").click(function(e){
+                    e.preventDefault();
+                    
+                    if( $("#username").val()=='new_user' && $("#password").val()=='123456789') {
+                        $('.response').html("Successful login!");
+                        $('#username,#password').css({
+                            'border': '1px solid green'
+                        });
+                        $('.fa-check').css({
+                            'z-index':'100'
+                        });
+                        $('.fa-times').css({
+                            'z-index':'-1'
+                        });
+                    }
+                    else if($("#username").val()=='new_user' && ($("#password").val()!='123456789' || $("#password").val()=='')){
+                        if($("#password").val()=='') $('.response').html("*please, enter password");
+                            else  $('.response').html("*please, enter valid password");
+
+                        $('#username').css({
+                            'border': '1px solid green'
+                        });
+                        $('.fasunc,.faspt').css({
+                            'z-index':'100'
+                        });
+                        $('.fasunt,.faspc').css({
+                            'z-index':'-1'
+                        });
+                        $('#password').css({
+                            'border': '1px solid red'
+                        }); 
+                    }
+                    else if($("#password").val()=='123456789' && ($("#username").val()!='new_user' || $("#username").val()=='')){
+                        $('#password').css({
+                            'border': '1px solid green'
+                        });
+                        $('.faspc,.fasunt').css({
+                            'z-index':'100'
+                        });
+                        $('.faspt,.fasunc').css({
+                            'z-index':'-1'
+                        });
+                        $('#username').css({
+                            'border': '1px solid red'
+                        });
+
+                        if($("#username").val()=='') $('.response').html("*please, enter username");
+                        else  $('.response').html("*please, enter valid username");
+
+                    }
+                    else {
+                        $('.response').html("*please, check your username and password");
+                        $('#username,#password').css({
+                            'border': '1px solid red'
+                        });
+                        $('.fa-times').css({
+                            'z-index':'100'
+                        });
+                        $('.fa-check').css({
+                            'z-index':'-1'
+                        });
+                    }
+        
+                });
+            });
+        
+        </script>
+    </body>
+</html>
